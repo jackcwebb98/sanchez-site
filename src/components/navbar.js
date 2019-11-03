@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
 import { withStyles } from "@material-ui/core";
 
@@ -25,7 +24,7 @@ function NavBar(props) {
       <div className={classes.root}>
         <div className={classes.logo}></div>
         <div className={classes.links}>
-        <Link to="/" style={{ textDecoration: "none" }}>
+          <Link to="/" style={{ textDecoration: "none" }}>
             <Button>Home</Button>
           </Link>
           <Link to="/art" style={{ textDecoration: "none" }}>
@@ -37,10 +36,11 @@ function NavBar(props) {
           <Link to="/contact" style={{ textDecoration: "none" }}>
             <Button>Contact</Button>
           </Link>
-          
         </div>
         <div className={classes.button}>
-          <Button>Login</Button>
+          <Link to="/login" style={{ textDecoration: "none" }}>
+            <Button>Login</Button>
+          </Link>
         </div>
       </div>
     </>

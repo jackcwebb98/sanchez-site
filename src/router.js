@@ -4,7 +4,8 @@ import Landing from "./components/landing";
 import Art from "./components/art";
 import Contact from "./components/contact";
 import About from "./components/about";
-
+import Login from './components/Login'
+import Admin from './components/adminPage/basePage'
 
 export default (
   <Switch>
@@ -12,5 +13,7 @@ export default (
     <Route path='/art' component={Art} />
     <Route path='/contact' component={Contact} />
     <Route path='/about' component={About} />
+    <Route path='/login' component={Login} />
+    <Route path='/admin' component={Admin} />
   </Switch>
 );

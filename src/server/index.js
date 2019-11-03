@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const massive = require("massive");
 const session = require("express-session");
+const ctrl = require("./controller");
 
 const app = express();
 
@@ -26,3 +27,7 @@ massive(CONNECTION_STRING).then(db => {
     console.log(`listening on server ${SERVER_PORT}`)
   );
 });
+
+app.get(`/getuser`, ctrl.getUser);
+app.get(`/sessiontest`, ctrl.sessionTest);
+app.get(`/register`, ctrl.register);

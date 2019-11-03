@@ -5,17 +5,19 @@ import "./App.css";
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import defaultTheme from "./themes/defaultTheme";
 import { CssBaseline } from "@material-ui/core";
-import router from './router'
+import router from "./router";
 
 function App() {
   return (
-    <HashRouter>
-      <CssBaseline />
-      <MuiThemeProvider theme={defaultTheme}>
-        <NavBar />
-        <div className="App">{router}</div>
-      </MuiThemeProvider>
-    </HashRouter>
+      <HashRouter>
+        <CssBaseline />
+        <MuiThemeProvider theme={defaultTheme}>
+          <div className="App">
+            <NavBar />
+            {router}
+          </div>
+        </MuiThemeProvider>
+      </HashRouter>
   );
 }
 
