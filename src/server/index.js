@@ -3,6 +3,7 @@ const express = require("express");
 const massive = require("massive");
 const session = require("express-session");
 const ctrl = require("./controller");
+const aws = require("aws-sdk");
 
 const app = express();
 
@@ -28,6 +29,42 @@ massive(CONNECTION_STRING).then(db => {
   );
 });
 
+app.get(`/api/sign-s3`, (req, res) => {
+  aws.config = {
+    region: "us-west-1",
+    accessKeyId: process.env.AWSAccessKeyId,
+    secretAccessKey: process.env.AWSSecretKey
+  };
+  const S3_BUCKET = process.env.BUCKET;
+
+  const s3 = new aws.S3();
+  const fileName = req.query.fileName;
+  const fileType = req.query.fileType;
+
+  const s3Params = {
+    Bucket: S3_BUCKET,
+    Key: fileName,
+    Expires: 60,
+    ContentType: fileType,
+    ACL: "public-read"
+  };
+
+  s3.getSignedUrl(`putObject`, s3Params, (err, data) => {
+    if (err) {
+      console.log(err);
+      return res.end();
+    }
+    const returnData = {
+      signedRequest: data,
+      url: `https://${S3_BUCKET}.s3.amazon.com/${fileName}`
+    };
+    console.log(returnData);
+    return res.status(200).send(returnData);
+  });
+});
+
 app.get(`/getuser`, ctrl.getUser);
 app.get(`/sessiontest`, ctrl.sessionTest);
 app.get(`/register`, ctrl.register);
+
+app.post(`/login`, ctrl.login);

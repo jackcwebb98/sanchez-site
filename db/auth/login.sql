@@ -1,0 +1,1 @@
+select * from users_table where username= ${username}
