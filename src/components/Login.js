@@ -1,11 +1,11 @@
-import React, { useEffect, useState, useContext } from "react";
-import { Button } from "@material-ui/core";
+import { useEffect, useState } from "react";
 import { withProvider } from "../context/Context";
 import useUser from "../context/UserStore";
 import { checkUser } from "./utils";
-import TextField from "@material-ui/core/TextField";
 import axios from "axios";
-import ArtCreator from './adminPage/ArtCreator'
+import ArtCreator from "./adminPage/ArtCreator";
+import { Redirect } from "react-router-dom";
+import { Button } from "@material-ui/core/Button";
 
 function Login(prop) {
   const { names, addUser } = useUser();
@@ -13,8 +13,8 @@ function Login(prop) {
   const [password, addPassword] = useState("");
 
   useEffect(() => {
-    checkUser().then(r => addUser(r.data)); //fix the checkUser endpoint to check if anything is on session, not in the db
-  }, {});
+    checkUser(); //fix the checkUser endpoint to check if anything is on session, not in the db
+  }, []);
 
   const loginUser = async props => {
     let user = { username, password };
@@ -24,31 +24,11 @@ function Login(prop) {
       console.log(err);
     }
   };
-
-  return (
-    <>
-      {/* <TextField
-        onChange={e => {
-          addUsername(e.target.value);
-        }}
-        placeholder="username"
-      />
-      <TextField
-        onChange={e => {
-          addPassword(e.target.value);
-        }}
-        placeholder="password"
-      />
-      <Button
-        onClick={() => {
-          console.log(username, password);
-        }}
-      >
-        Login
-      </Button> */}
-      <ArtCreator />
-    </>
-  );
+  // return names ? (
+  //   <Redirect to={{ pathname: "/admin" }} />
+  // ) : (
+  //   <Button>login</Button>
+  // );
 }
 
 export default withProvider(Login);

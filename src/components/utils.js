@@ -13,13 +13,14 @@ export async function checkUser() {
 export async function imageUpload([file]) {
   const fileName = `${randomString()}-${file.name.replace(/\s/g, "-")}`;
 
-  axios
-    .get(`/api/sign-s3`, {
-      params: {
-        "fileName": fileName,
-        "fileType": file.type
-      }
-    })
-    .then(r => console.log(r));
+  let res = await axios.get(`/api/sign-s3`, {
+    params: {
+      fileName: fileName,
+      fileType: file.type
+    }
+  });
+
+  return res
 }
 
+export async function uploadFile(signedRequest, url, description) {}
