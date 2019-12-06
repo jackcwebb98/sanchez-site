@@ -5,9 +5,7 @@ export async function checkUser() {
   let user = await axios.get(`/getuser`);
   if (user) {
     return user;
-  } else {
-    return 0;
-  }
+  } 
 }
 
 export async function imageUpload([file]) {

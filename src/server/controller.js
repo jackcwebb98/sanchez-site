@@ -1,32 +1,37 @@
 const bcrypt = require("bcryptjs");
 
 module.exports = {
-  register: async (req, res) => {},
-
   getUser: async (req, res) => {
-    const db = req.app.get("db");
+    const { session } = req;
+
     try {
-      let user = await db.auth.getUser();
-      user = user[0];
-      if (!user) {
+      if (!session.user) {
         res.sendStatus(404);
       } else {
-        res.status(200).send(user);
+        res.status(200).send(session.user);
       }
     } catch (error) {
       console.log(error);
     }
   },
-  sessionTest: (req, res) => {
+  register: async (req, res) => {
+    const { username, password, firstName, lastName } = req.body;
+    const db = req.app.get("db");
     const { session } = req;
-    console.log(session);
-
     try {
-      if (session) {
-        res.send(session);
-      }
-    } catch (error) {
-      console.log(error);
+      let salt = bcrypt.genSaltSync(10);
+      let hash = bcrypt.hashSync(password, salt);
+      let user = await db.auth.createUser({
+        username,
+        password: hash,
+        first_name: firstName,
+        last_name: lastName
+      });
+      user = user[0];
+      session.user = user;
+      res.status(200).send(session.user)
+    } catch (e) {
+      res.send(e)
     }
   },
   login: async (req, res) => {
@@ -47,7 +52,12 @@ module.exports = {
 
       res.status(200).send(session.user);
     } else {
-      res.sendStatus(401)
+      res.sendStatus(401);
     }
+  },
+  logout: (req, res) => {
+    req.session.destroy(function() {
+      res.sendStatus(200);
+    });
   }
 };

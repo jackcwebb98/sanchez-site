@@ -63,7 +63,6 @@ app.get(`/api/sign-s3`, (req, res) => {
 });
 
 app.get(`/getuser`, ctrl.getUser);
-app.get(`/sessiontest`, ctrl.sessionTest);
-app.get(`/register`, ctrl.register);
 
+app.post(`/register`, ctrl.register);
 app.post(`/login`, ctrl.login);

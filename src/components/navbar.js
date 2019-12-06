@@ -6,13 +6,17 @@ import { withStyles, Typography, ButtonBase } from "@material-ui/core";
 const styles = theme => ({
   root: {
     display: "flex",
-    justifyContent: "space-between"
+    alignItems: "center",
+    justifyContent: "center"
   },
   links: {
     display: "flex",
     width: "50%",
-    justifyContent: "space-evenly",
+    justifyContent: "space-between",
     alignItems: "center"
+  },
+  button: {
+    color: "black"
   }
 });
 
@@ -23,30 +27,41 @@ function NavBar(props) {
       <div className={classes.root}>
         <div className={classes.logo}></div>
         <div className={classes.links}>
-          <Link to="/" style={{ textDecoration: "none" }}>
-            <ButtonBase>
+          <Link
+            to="/"
+            style={{ textDecoration: "none" }}
+            className={classes.button}
+          >
+            <ButtonBase disableRipple={true}>
               <Typography>Home</Typography>
             </ButtonBase>
           </Link>
-          <Link to="/art" style={{ textDecoration: "none" }}>
-          <ButtonBase>
+          <Link
+            to="/art"
+            style={{ textDecoration: "none" }}
+            className={classes.button}
+          >
+            <ButtonBase disableRipple={true}>
               <Typography>Art</Typography>
             </ButtonBase>
           </Link>
-          <Link to="/about" style={{ textDecoration: "none" }}>
-          <ButtonBase>
-              <Typography>About</Typography>
+          <Link
+            to="/contact"
+            style={{ textDecoration: "none" }}
+            className={classes.button}
+          >
+            <ButtonBase disableRipple={true}>
+              <Typography>Contact</Typography>
             </ButtonBase>
           </Link>
-          <Link to="/contact" style={{ textDecoration: "none" }}>
-          <ButtonBase>
-              <Typography color='black'>Contact</Typography>
+          <Link
+            to="/login"
+            style={{ textDecoration: "none" }}
+            className={classes.button}
+          >
+            <ButtonBase disableRipple={true}>
+              <Typography>Login</Typography>
             </ButtonBase>
-          </Link>
-        </div>
-        <div className={classes.button}>
-          <Link to="/login" style={{ textDecoration: "none" }}>
-            <Button>Login</Button>
           </Link>
         </div>
       </div>
